@@ -42,4 +42,4 @@ data/raw/*.json
 data/processed/**/*.npy
 
 # Ignore all .json files anywhere under data/raw/
-data/raw/**/*.json
+# data/raw/**/*.json
