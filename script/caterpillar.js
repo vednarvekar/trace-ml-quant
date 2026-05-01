@@ -5,8 +5,19 @@
 
 import axios from "axios"
 import fs from "node:fs"
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import dotenv from "dotenv"
 dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const BASE_DIR = path.resolve(__dirname, ".."); 
+const data_path = path.join(BASE_DIR, "data", "raw", "1min", "tataMotors_ohlcv.json");
+
+// Ensure the directory exists
+const dir = path.dirname(data_path);
+if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
 async function downloadOHLCVData() {
     // const instrumentKey = encodeURIComponent('NSE_INDEX|Nifty 50');
@@ -32,7 +43,7 @@ async function downloadOHLCVData() {
         let toDate = endOfMonth > now ? now : endOfMonth;
         const toDateStr = toDate.toISOString().split('T')[0];
 
-        const url = `https://api.upstox.com/v3/historical-candle/${instrumentKey}/minutes/5/${toDateStr}/${fromDateStr}`;
+        const url = `https://api.upstox.com/v3/historical-candle/${instrumentKey}/minutes/1/${toDateStr}/${fromDateStr}`;
 
         try {
             console.log(`Fetching Month: ${fromDateStr} to ${toDateStr}`);
@@ -84,7 +95,8 @@ async function downloadOHLCVData() {
     }
 
     if (fetchedData.length > 0) {
-        fs.writeFileSync('tataMotors_5min_ohlcv.json', JSON.stringify(fetchedData, null, 2));
+        // fs.writeFileSync('tataMotors_5min_ohlcv.json', JSON.stringify(fetchedData, null, 2));
+        fs.writeFileSync(data_path, JSON.stringify(fetchedData, null, 2));
         console.log("--- ALL DATA DOWNLOADED ---");
         console.log(`Final Result: ${fetchedData.length} candles saved.`);
     }

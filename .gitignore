@@ -31,3 +31,15 @@ dist-ssr
 .env.local
 .env.*.local
 .c
+
+# Ignore processed data arrays
+data/processed/*.npy
+
+# Ignore large raw data files
+data/raw/*.json
+
+# Ignore all .npy files anywhere under data/processed/
+data/processed/**/*.npy
+
+# Ignore all .json files anywhere under data/raw/
+data/raw/**/*.json
