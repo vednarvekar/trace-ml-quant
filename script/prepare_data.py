@@ -1,9 +1,15 @@
 import pandas as pd
 import numpy as np
 import json
+from pathlib import Path
 
 WINDOW = 60
 HORIZON = 10
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+data_path = BASE_DIR / "data" / "raw/reliance_5min_ohlcv.json"
+save_path_X = BASE_DIR / "data" / "processed/reliance-X_train.npy"
+save_path_y = BASE_DIR / "data" / "processed/reliance-y_train.npy"
 
 def process_to_3d(filename):
     with open(filename, 'r') as f:
@@ -28,17 +34,17 @@ def process_to_3d(filename):
 
         # Did it go up > 0.5%?
         change = (price_future - price_now) / price_now
-        lable = 1 if change > 0.05 else 0
+        lable = 1 if change > 0.005 else 0
 
         X.append(norm_snippet)
         y.append(lable)
 
     return np.array(X), np.array(y)
     
-X_train, y_train = process_to_3d('../raw/reliance_5min_ohlcv.json')
+X_train, y_train = process_to_3d(data_path)
 
-np.save('../data/processed/reliance-X_train.npy', X_train)
-np.save('../data/processed/reliance-y_train.npy', y_train)
+np.save(save_path_X, X_train)
+np.save(save_path_y, y_train)
 
 print(f"Success! Data Shape: {X_train.shape}")
 print(f"Positive samples found: {np.sum(y_train)} out of {len(y_train)}")

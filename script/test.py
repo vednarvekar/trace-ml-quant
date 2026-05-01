@@ -5,7 +5,7 @@ import json
 
 # Load your data
 BASE_DIR = Path(__file__).resolve().parent.parent
-data_path = BASE_DIR / "data" / "raw/tataMotors_5min_ohlcv.json"
+data_path = BASE_DIR / "data" / "raw/hdfc_5min_ohlcv.json"
 
 with open(data_path, 'r') as f:
     df = pd.DataFrame(json.load(f))
@@ -17,7 +17,7 @@ df['future_change'] = df['close'].shift(-10) / df['close'] - 1
 # Drop the last 10 rows (where we don't have future data)
 changes = df['future_change'].dropna()
 
-print(f"Average move in 50 mins: {changes.mean()*100:.2f}%")
+print(f"Average move in 50 mins: {changes.mean()*100:.10f}%")
 print(f"Standard Deviation: {changes.std()*100:.2f}%")
 
 # Check how many samples we get at different targets
