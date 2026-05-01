@@ -30,16 +30,12 @@ dist-ssr
 # Ignore environment file variants
 .env.local
 .env.*.local
-.c
 
-# Ignore processed data arrays
-data/processed/*.npy
-
-# Ignore large raw data files
-data/raw/*.json
-
-# Ignore all .npy files anywhere under data/processed/
+# Ignore processed data arrays (too large for LFS quota)
 data/processed/**/*.npy
+.npy
+data/raw
 
-# Ignore all .json files anywhere under data/raw/
-# data/raw/**/*.json
+# --- DATA MANAGEMENT ---
+# We are now using Git LFS for .npy and .json files.
+# Do NOT add them back here, or LFS will stop tracking them.
