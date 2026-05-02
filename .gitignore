@@ -35,6 +35,7 @@ dist-ssr
 data/processed/**/*.npy
 .npy
 data/raw
+data/
 
 # --- DATA MANAGEMENT ---
 # We are now using Git LFS for .npy and .json files.
