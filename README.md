@@ -305,7 +305,7 @@ trace-ml-quant/
 ├── script/
 │   ├── prepare_data.py
 │   ├── merge_data.py
-│   └── caterpillar.js
+│   └── caterpillar.ts
 ├── cnn_model.md
 └── PROJECT_SUGGESTIONS.md
 ```

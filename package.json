@@ -1,9 +1,9 @@
 {
   "name": "trace-ml-quant",
   "version": "1.0.0",
-  "main": "caterpillar.js",
   "type": "module",
   "scripts": {
+    "fetch:data": "node --experimental-strip-types script/caterpillar.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,5 +14,10 @@
     "axios": "^1.15.2",
     "dotenv": "^17.4.2",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^25.6.0"
   }
 }
